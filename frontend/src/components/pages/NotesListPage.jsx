@@ -1,4 +1,5 @@
 import {React, useState, useEffect} from 'react'
+import ListItem from '../ListItem';
 import axios from "axios";
 
 //GETTING All NOTES FROM THE API
@@ -10,6 +11,7 @@ const NotesListPage = () => {
 
     const getAllNotes = async () => {
         try {
+            // a proxy url can be set for this
             let response = await axios.get("http://127.0.0.1:8000/api/notes/");
             console.log("DATA:", response.data)
             setNotes(response.data)
@@ -26,7 +28,9 @@ const NotesListPage = () => {
     <div className="notes-list">
         {notes && notes.map((note) => {
             return(
-                <h3 key={note.id} >{note.body}</h3>
+                <ListItem key={note.id} note={note} />
+                // each note is passed as props to ListItem. 
+                // ListItem is being rendered by NotesListPage
             )
         })}
         
