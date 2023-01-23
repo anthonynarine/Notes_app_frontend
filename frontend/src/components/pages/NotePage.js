@@ -11,18 +11,20 @@ const NotePage = () => {
     useEffect(() => {
         const getNote = async () => {
             try {
+                // a proxy url can be set for this
                 let response = axios.get(`http://127.0.0.1:8000/api/notes/${id}`)
+                setNote((await response).data)
             } catch (error) {
                 
             }
         }
-
-    },[]);
+        getNote();
+    },[id]);
 
 
     return (
         <div>
-        single note {id}
+        <p>{note?.body}</p>
     </div>
   )
 };
