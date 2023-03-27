@@ -8,16 +8,17 @@ import "./App.css";
 
 function App() {
   return (
-    <div className="container dark">
+    <div className="container ">
       <div className="app">
-      <Header />
-      <Routes>
-        <Route path="/" element={<NotesListPage />} />
-        {/* id will be destructured in NotePage using useParmas hook */}
-        <Route path="/note/:id" element={<NotePage />} />
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
-      </div>
+        <Header />
+        <Routes>
+          <Route path="/" element={<NotesListPage />} />
+          {/* id will be destructured in NotePage using useParmas hook */}
+          <Route path="/note/:id" element={<NotePage />} />
+          {/* localhost:3000/note/2 to test make sure backend server is running will route to the note with id 2*/}
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+        </div>
     </div>
   );
 }
@@ -37,3 +38,7 @@ export default App;
 //     </StyledEngineProvider>
 //   );
 // }
+
+
+
+

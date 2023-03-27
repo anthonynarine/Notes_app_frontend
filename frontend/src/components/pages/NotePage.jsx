@@ -4,12 +4,14 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 //icon
-import { RxDoubleArrowLeft } from "react-icons/rx";
+import {TfiBackLeft } from "react-icons/tfi"
 
 const NotePage = () => {
-  // id destructured with useParmas passed from the dynamic path in apps.js
-  const { id } = useParams();
-  const [note, setNote] = useState(null);
+
+  // id destructured with useParmas passed from the path with the id parameter in apps.js
+  let { id } = useParams();
+  let [note, setNote] = useState(null);
+  // state to store incoming note from below get request
 
   useEffect(() => {
     const getNote = async () => {
@@ -24,22 +26,22 @@ const NotePage = () => {
 
   //on change handler for editing notes.
   const handleNoteChange = (event) => {
-    setNote(...note, event.target.value )
+    setNote({...note, "body": event.target.value })
+// spread operator saying we want to update the note object, specifically the body of the note
   };
 
-  const updateNote
-
-
-
+  // const updateNote
 
   return (
     <div className="note">
       <div className="note-header">
+      {/* links back to home page */}
         <Link to="/" >
           <h3>
-            <RxDoubleArrowLeft />
+            <TfiBackLeft /><span style={{fontSize:20}}>back</span>
           </h3>
         </Link>
+
       </div>
       <textarea onChange={handleNoteChange} defaultValue={note?.body}></textarea>
     </div>
