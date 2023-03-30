@@ -13,6 +13,7 @@ const NotePage = () => {
   let [note, setNote] = useState(null);
   // state to store incoming note from below get request
 
+
   useEffect(() => {
     const getNote = async () => {
       try {
@@ -26,8 +27,11 @@ const NotePage = () => {
     getNote();
   }, []);
 
-  //on change handler for editing notes.
-  const handleNoteUpdate = (event) => {
+ 
+  // inside a event handler we set state to the current note requested by the above
+  // get request. then send a put request with the note's id and and set the event
+  // handler to targert the body of the note. 
+  let updateNote = (event) => {
   // spread operator saying we want to update the note object, specifically the body of the note
     setNote({note});
     try {
@@ -39,11 +43,23 @@ const NotePage = () => {
     }    
   };
 
+  // this handle submit willl be attached to the back button submitting the updated 
+  // note when the user clicks back. 
   let handleSubmit = () => {
-    handleNoteUpdate()
+    updateNote()
     navigate("/")
-
+  };
+  
+  let deleteNote = async () => {
+    try {
+      await axios.delete(`http://127.0.0.1:8000/api/notes/${id}`)
+      
+    } catch (error) {
+      console.log("ERROR", error)
+      navigate("/")     
+    }
   }
+
 
   return (
     <div className="note">
@@ -55,9 +71,10 @@ const NotePage = () => {
             <span style={{ fontSize: 20 }}>back</span>
           </h3>
         </Link>
+            <button onClick={deleteNote} >delete</button>
       </div>
       <textarea
-        onChange={handleNoteUpdate}
+        onChange={updateNote}
         defaultValue={note?.body}
       ></textarea>
     </div>

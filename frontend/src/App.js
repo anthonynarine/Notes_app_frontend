@@ -8,7 +8,8 @@ import "./App.css";
 
 function App() {
   return (
-    <div className="container ">
+    // to toggle light and dark container (for light) container dark for dark
+    <div className="container dark ">
       <div className="app">
         <Header />
         <Routes>
