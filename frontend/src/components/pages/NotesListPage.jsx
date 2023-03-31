@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from "react";
+import AddButton from "./AddButton";
 import ListItem from "../ListItem";
 import axios from "axios";
 
@@ -40,6 +41,7 @@ const NotesListPage = () => {
             );
           })}
       </div>
+      <div className="hoverButton" ><AddButton /></div>
     </div>
   );
 };

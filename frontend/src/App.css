@@ -65,8 +65,9 @@ a {
 .app {
   width: 100%;
   max-width: 480px;
-  height: 88vh;
+  height: 80vh;
   margin: 0 auto;
+  margin-bottom: 100px;
   background-color: var(--color-white);
   box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.05);
   position: relative;
@@ -171,11 +172,12 @@ a {
 }
 
 .floating-button {
+   
   font-size: 48px;
   position: absolute;
   bottom: 24px;
   right: 16px;
-  background: var(--color-main);
+  background: var(--color-gray);
   border: none;
   width: 60px;
   height: 60px;
@@ -184,8 +186,11 @@ a {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
 }
+
+
+
 
 
 .floating-button > svg {

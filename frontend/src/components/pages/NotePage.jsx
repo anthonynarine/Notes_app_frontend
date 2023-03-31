@@ -1,10 +1,10 @@
-import React from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import { TfiBackLeft } from "react-icons/tfi";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-//icon
-import { TfiBackLeft } from "react-icons/tfi";
+
+
 
 const NotePage = () => {
   // id destructured with useParmas passed from the path with the id parameter in apps.js
@@ -14,18 +14,34 @@ const NotePage = () => {
   // state to store incoming note from below get request
 
 
+
   useEffect(() => {
     const getNote = async () => {
       try {
-        // a proxy url can be set for this
+        // // a proxy url can be set for this
+        if (id === "new") return
         let {data} = await axios.get(`http://127.0.0.1:8000/api/notes/${id}`);
         // id destructured from above used in url via template literal in the url
         setNote(data);
+        console.log(data.id)
         console.log(data.body)
       } catch (error) {}
     };
     getNote();
   }, []);
+
+  
+  let createNote = async function(){
+    try {
+      let response = await axios.post("http://127.0.0.1:8000/api/notes/", {
+        body: note
+      })
+      console.log(response)    
+    } catch (error) {
+      console.log("Error", error)
+      
+    }
+  }
 
  
   // inside a event handler we set state to the current note requested by the above
@@ -46,7 +62,15 @@ const NotePage = () => {
   // this handle submit willl be attached to the back button submitting the updated 
   // note when the user clicks back. 
   let handleSubmit = () => {
-    updateNote()
+// if the note is not new and has no body delete it, if the notes id is not new update it. 
+//if the note's id is new and the note is not blank create the note. navigate home on create 
+    if (id === "new" && !note.body){
+      deleteNote()
+    }else if (id !=="new"){
+      updateNote()
+    }else if (id === "" && note !== null){
+      createNote()
+    }
     navigate("/")
   };
   
@@ -64,14 +88,21 @@ const NotePage = () => {
   return (
     <div className="note">
       <div className="note-header">
-        {/* links back to home page */}
+{/* links back to home page */}
         <Link to="/">
           <h3>
             <TfiBackLeft onClick={handleSubmit} />
             <span style={{ fontSize: 20 }}>back</span>
           </h3>
         </Link>
-            <button onClick={deleteNote} >delete</button>
+{/* if the note id is not equal to new render
+the delete button if that's not the case render the done button */}
+        {id !== "new" ? (
+          <button onClick={deleteNote} >delete</button>
+        ) : (
+          <button onClick={handleSubmit} >done</button>
+        )}
+            
       </div>
       <textarea
         onChange={updateNote}
