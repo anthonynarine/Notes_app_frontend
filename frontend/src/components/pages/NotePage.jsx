@@ -19,7 +19,7 @@ const NotePage = () => {
     const getNote = async () => {
       try {
         // // a proxy url can be set for this
-        if (id === "new") return
+        if (id === "") return
         let {data} = await axios.get(`http://127.0.0.1:8000/api/notes/${id}`);
         // id destructured from above used in url via template literal in the url
         setNote(data);
@@ -30,26 +30,13 @@ const NotePage = () => {
     getNote();
   }, []);
 
-  
-  let createNote = async function(){
-    try {
-      let response = await axios.post("http://127.0.0.1:8000/api/notes/", {
-        body: note
-      })
-      console.log(response)    
-    } catch (error) {
-      console.log("Error", error)
-      
-    }
-  }
-
  
   // inside a event handler we set state to the current note requested by the above
   // get request. then send a put request with the note's id and and set the event
   // handler to targert the body of the note. 
   let updateNote = (event) => {
   // spread operator saying we want to update the note object, specifically the body of the note
-    setNote({note});
+    setNote({...note});
     try {
       axios.put(`http://127.0.0.1:8000/api/notes/${id}/`,{
         body: event.target.value
@@ -68,8 +55,6 @@ const NotePage = () => {
       deleteNote()
     }else if (id !=="new"){
       updateNote()
-    }else if (id === "" && note !== null){
-      createNote()
     }
     navigate("/")
   };

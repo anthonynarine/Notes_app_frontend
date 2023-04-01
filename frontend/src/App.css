@@ -84,7 +84,7 @@ a {
 }
 
 .app-header h1 {
-  font-size: 30px;
+  font-size: 16px;
   color: var(--color-dark);
   font-weight: 800;
   text-align: center;
@@ -207,6 +207,13 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: var(--color-main);
+  padding: 10px;
+}
+.note-header1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--color-main);
   padding: 10px;
 }
