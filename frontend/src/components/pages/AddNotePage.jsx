@@ -5,6 +5,16 @@ import { SiApachemaven } from "react-icons/si";
 import { TfiBackLeft } from "react-icons/tfi";
 import axios from "axios";
 import { useState } from "react";
+import { Button, styled } from "@mui/material";
+
+
+let DoneButton = styled(Button)({
+    backgroundColor: "#2E3235",
+
+    "&:hover": {
+        backgroundColor: "#f96d00"
+    }
+})
 
 function AddNotePage() {
   let navigate = useNavigate();
@@ -16,7 +26,7 @@ function AddNotePage() {
 
   //targets the note body and sets noteValue
   let handleChange = (event) => {
-    setNoteValue({...noteValue, body: event.target.value });
+    setNoteValue({ ...noteValue, body: event.target.value });
   };
 
   //handles form submission and request to backend
@@ -28,22 +38,24 @@ function AddNotePage() {
     } catch (error) {
       console.log(error);
     }
-    navigate("/")
+    navigate("/");
   };
 
   return (
     <div className="note">
-        <form onSubmit={handleSubmit}>
-            <div>
-                <textarea onChange={handleChange}></textarea>
-            </div>
-            <button>submit</button>
-        </form>
-
+      <form onSubmit={handleSubmit}>
+        <div className="note-header">
+          <DoneButton size="small" variant="contained" onClick={handleSubmit}>
+            {/* <TfiBackLeft  /> */}
+            <span style={{ fontSize: 15 }}>Add</span>
+          </DoneButton>
+        </div>
+        <div>
+          <textarea onChange={handleChange}></textarea>
+        </div>
+      </form>
     </div>
   );
 }
 
 export default AddNotePage;
-
-
